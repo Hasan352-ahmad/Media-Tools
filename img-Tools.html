@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tools for media compression, file conversion, and productivity. Compress images, videos, audio, convert files, and boost your productivity.">
+    <meta name="keywords" content="image compressor, video compressor, audio compressor, PDF to Word, Word to PDF, invoice maker, file converter, media tools, productivity, todo list, calculator, alarm clock">
+    <title>MediaTools Pro - All-in-One File Converter & Productivity Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --danger: #f94144;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e9ecef 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee" opacity="0.03"/></svg>');
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: var(--gray);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Tools Section */
+        .tools-section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--dark);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 2.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(30deg);
+        }
+
+        .tool-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .tool-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+
+        .tool-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Tool Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-header h2 {
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-header h2 i {
+            margin-right: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* File Upload Styles */
+        .upload-area {
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            background: #fafbff;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #f0f4ff;
+        }
+
+        .upload-area i {
+            font-size: 3.5rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .options {
+            margin-bottom: 1.5rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .option-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .option-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .option-group select, .option-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .option-group select:focus, .option-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            outline: none;
+        }
+
+        .progress-container {
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background-color: var(--gray-light);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .process-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--success), #3aa8d0);
+            color: white;
+            display: none;
+            box-shadow: 0 4px 10px rgba(76, 201, 240, 0.2);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 201, 240, 0.3);
+        }
+
+        /* Productivity Suite Styles */
+        .productivity-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .productivity-tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            border-radius: 6px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .productivity-tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .productivity-content {
+            display: none;
+        }
+
+        .productivity-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Invoice Specific Styles */
+        .invoice-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .invoice-form-section {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .invoice-preview-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .invoice-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .invoice-form .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .invoice-form h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .invoice-preview {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1.5rem;
+        }
+
+        .invoice-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .invoice-title {
+            text-align: right;
+        }
+
+        .invoice-title h1 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .invoice-from, .invoice-to {
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        .invoice-from h3, .invoice-to h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .invoice-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .invoice-items th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+        }
+
+        .invoice-items td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .invoice-items tr:last-child td {
+            border-bottom: none;
+        }
+
+        .invoice-items tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .invoice-totals {
+            margin-left: auto;
+            width: 300px;
+            border-top: 2px solid var(--gray-light);
+            padding-top: 1rem;
+        }
+
+        .invoice-totals div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .invoice-totals .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 2px solid var(--dark);
+            padding-top: 0.8rem;
+            color: var(--primary);
+        }
+
+        .invoice-notes {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        .invoice-notes h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Ads Section */
+        .ads-section {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .ad-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 3rem 1rem;
+            border-radius: var(--border-radius);
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #343a40);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .mobile-nav {
+                display: none;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .mobile-nav.active {
+                display: block;
+            }
+
+            .mobile-nav ul {
+                flex-direction: column;
+            }
+
+            .mobile-nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .invoice-container {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-form {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-details {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .invoice-title {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tools"></i>
+                    MediaTools Pro
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="mobile-nav" id="mobileNav">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>All-in-One Media & Productivity Tools</h1>
+            <p>Free online tools for compressing images, videos, audio, converting files, and boosting your productivity. Fast, secure, and easy to use.</p>
+            <a href="#tools" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Powerful Tools</h2>
+                <p>Choose from our collection of free online tools to optimize and convert your files</p>
+            </div>
+            <div class="tools-grid">
+                <!-- Image Compressor -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>AI Image Compressor</h3>
+                        <p>Reduce image file size without losing quality using our AI-powered compression technology.</p>
+                        <button class="tool-button" data-tool="image-compressor">Compress Now</button>
+                    </div>
+                </div>
+
+                <!-- Video Compressor -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Video Compressor</h3>
+                        <p>Compress videos to reduce file size while maintaining good quality for sharing and storage.</p>
+                        <button class="tool-button" data-tool="video-compressor">Compress Now</button>
+                    </div>
+                </div>
+
+                <!-- Audio Compressor -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Audio Compressor</h3>
+                        <p>Reduce audio file size for easier sharing and storage without significant quality loss.</p>
+                        <button class="tool-button" data-tool="audio-compressor">Compress Now</button>
+                    </div>
+                </div>
+
+                <!-- Productivity Suite -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Productivity Suite</h3>
+                        <p>Boost your productivity with customizable todo lists, calculator, and alarm clock with motivational quotes.</p>
+                        <button class="tool-button" data-tool="productivity-suite">Open Suite</button>
+                    </div>
+                </div>
+
+                <!-- PDF to Word -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF documents to editable Word format while preserving layout and formatting.</p>
+                        <button class="tool-button" data-tool="pdf-to-word">Convert Now</button>
+                    </div>
+                </div>
+
+                <!-- Word to PDF -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Word to PDF</h3>
+                        <p>Convert Word documents to PDF format for easy sharing and universal compatibility.</p>
+                        <button class="tool-button" data-tool="word-to-pdf">Convert Now</button>
+                    </div>
+                </div>
+
+                <!-- Invoice Maker -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Invoice Maker</h3>
+                        <p>Create professional invoices quickly with our easy-to-use invoice generator.</p>
+                        <button class="tool-button" data-tool="invoice-maker">Create Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ads Section -->
+    <section class="ads-section">
+        <div class="container">
+            <div class="ad-container">
+                <div class="ad-placeholder">
+                    <!-- Replace this with your ad code -->
+                    <h3>Advertisement</h3>
+                    <p>Your ad could be here! Simply paste your ad code in this section.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MediaTools Pro</h3>
+                    <p>Your all-in-one solution for media compression, file conversion, and productivity tools.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><a href="#" data-tool="image-compressor">Image Compressor</a></li>
+                        <li><a href="#" data-tool="video-compressor">Video Compressor</a></li>
+                        <li><a href="#" data-tool="audio-compressor">Audio Compressor</a></li>
+                        <li><a href="#" data-tool="productivity-suite">Productivity Suite</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@mediatoolspro.com</li>
+                        <li><i class="fas fa-globe"></i> www.mediatoolspro.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 MediaTools Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Compressor Modal -->
+    <div class="modal" id="image-compressor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-compress-arrows-alt"></i> AI Image Compressor</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="image-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your image here or click to browse</p>
+                    <input type="file" class="file-input" id="image-input" accept="image/*">
+                    <div class="file-info" id="image-file-info"></div>
+                </div>
+                <div class="options">
+                    <div class="option-group">
+                        <label for="image-quality">Compression Quality</label>
+                        <select id="image-quality">
+                            <option value="0.9">High Quality (90%)</option>
+                            <option value="0.7" selected>Good Quality (70%)</option>
+                            <option value="0.5">Medium Quality (50%)</option>
+                            <option value="0.3">Low Quality (30%)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="image-format">Output Format</label>
+                        <select id="image-format">
+                            <option value="original">Keep Original</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="progress-container" id="image-progress-container">
+                    <p>Compressing: <span id="image-progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="image-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="process-btn" id="image-process-btn">Compress Image</button>
+                    <button class="download-btn" id="image-download-btn">Download Compressed Image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Compressor Modal -->
+    <div class="modal" id="video-compressor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-film"></i> Video Compressor</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="video-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your video here or click to browse</p>
+                    <input type="file" class="file-input" id="video-input" accept="video/*">
+                    <div class="file-info" id="video-file-info"></div>
+                </div>
+                <div class="options">
+                    <div class="option-group">
+                        <label for="video-quality">Compression Quality</label>
+                        <select id="video-quality">
+                            <option value="high">High Quality</option>
+                            <option value="medium" selected>Medium Quality</option>
+                            <option value="low">Low Quality</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="video-format">Output Format</label>
+                        <select id="video-format">
+                            <option value="mp4">MP4</option>
+                            <option value="webm">WebM</option>
+                            <option value="avi">AVI</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="progress-container" id="video-progress-container">
+                    <p>Compressing: <span id="video-progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="video-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="process-btn" id="video-process-btn">Compress Video</button>
+                    <button class="download-btn" id="video-download-btn">Download Compressed Video</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Compressor Modal -->
+    <div class="modal" id="audio-compressor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-music"></i> Audio Compressor</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="audio-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your audio file here or click to browse</p>
+                    <input type="file" class="file-input" id="audio-input" accept="audio/*">
+                    <div class="file-info" id="audio-file-info"></div>
+                </div>
+                <div class="options">
+                    <div class="option-group">
+                        <label for="audio-quality">Compression Quality</label>
+                        <select id="audio-quality">
+                            <option value="high">High Quality</option>
+                            <option value="medium" selected>Medium Quality</option>
+                            <option value="low">Low Quality</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="audio-format">Output Format</label>
+                        <select id="audio-format">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="ogg">OGG</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="progress-container" id="audio-progress-container">
+                    <p>Compressing: <span id="audio-progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="audio-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="process-btn" id="audio-process-btn">Compress Audio</button>
+                    <button class="download-btn" id="audio-download-btn">Download Compressed Audio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF to Word Modal -->
+    <div class="modal" id="pdf-to-word-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-pdf"></i> PDF to Word Converter</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="pdf-to-word-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your PDF file here or click to browse</p>
+                    <input type="file" class="file-input" id="pdf-to-word-input" accept=".pdf">
+                    <div class="file-info" id="pdf-to-word-file-info"></div>
+                </div>
+                <div class="progress-container" id="pdf-to-word-progress-container">
+                    <p>Converting: <span id="pdf-to-word-progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="pdf-to-word-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="process-btn" id="pdf-to-word-btn">Convert to Word</button>
+                    <button class="download-btn" id="pdf-to-word-download-btn">Download Word Document</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Word to PDF Modal -->
+    <div class="modal" id="word-to-pdf-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-word"></i> Word to PDF Converter</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="word-to-pdf-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your Word document here or click to browse</p>
+                    <input type="file" class="file-input" id="word-to-pdf-input" accept=".doc,.docx">
+                    <div class="file-info" id="word-to-pdf-file-info"></div>
+                </div>
+                <div class="progress-container" id="word-to-pdf-progress-container">
+                    <p>Converting: <span id="word-to-pdf-progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="word-to-pdf-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="process-btn" id="word-to-pdf-btn">Convert to PDF</button>
+                    <button class="download-btn" id="word-to-pdf-download-btn">Download PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Maker Modal -->
+    <div class="modal" id="invoice-maker-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-invoice-dollar"></i> Professional Invoice Maker</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="invoice-container">
+                    <div class="invoice-form-section">
+                        <form class="invoice-form" id="invoice-form">
+                            <div class="full-width">
+                                <h3>Company Information</h3>
+                            </div>
+                            <div class="option-group">
+                                <label for="company-name">Company Name</label>
+                                <input type="text" id="company-name" placeholder="Your Company Name" value="MediaTools Pro">
+                            </div>
+                            <div class="option-group">
+                                <label for="company-address">Company Address</label>
+                                <input type="text" id="company-address" placeholder="Company Address" value="123 Business Avenue, Suite 100">
+                            </div>
+                            <div class="option-group">
+                                <label for="company-email">Email</label>
+                                <input type="email" id="company-email" placeholder="company@example.com" value="billing@mediatoolspro.com">
+                            </div>
+                            <div class="option-group">
+                                <label for="company-phone">Phone</label>
+                                <input type="text" id="company-phone" placeholder="+1 (123) 456-7890" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="option-group">
+                                <label for="company-website">Website</label>
+                                <input type="text" id="company-website" placeholder="www.example.com" value="www.mediatoolspro.com">
+                            </div>
+                            
+                            <div class="full-width">
+                                <h3>Client Information</h3>
+                            </div>
+                            <div class="option-group">
+                                <label for="client-name">Client Name</label>
+                                <input type="text" id="client-name" placeholder="Client Name" value="John Smith">
+                            </div>
+                            <div class="option-group">
+                                <label for="client-company">Client Company</label>
+                                <input type="text" id="client-company" placeholder="Client Company (Optional)" value="ABC Corporation">
+                            </div>
+                            <div class="option-group">
+                                <label for="client-address">Client Address</label>
+                                <input type="text" id="client-address" placeholder="Client Address" value="456 Client Street, Suite 200">
+                            </div>
+                            <div class="option-group">
+                                <label for="client-email">Client Email</label>
+                                <input type="email" id="client-email" placeholder="client@example.com" value="john.smith@abccorp.com">
+                            </div>
+                            
+                            <div class="full-width">
+                                <h3>Invoice Details</h3>
+                            </div>
+                            <div class="option-group">
+                                <label for="invoice-number">Invoice Number</label>
+                                <input type="text" id="invoice-number" placeholder="INV-001" value="INV-2023-001">
+                            </div>
+                            <div class="option-group">
+                                <label for="invoice-date">Invoice Date</label>
+                                <input type="date" id="invoice-date">
+                            </div>
+                            <div class="option-group">
+                                <label for="due-date">Due Date</label>
+                                <input type="date" id="due-date">
+                            </div>
+                            <div class="option-group">
+                                <label for="payment-terms">Payment Terms</label>
+                                <select id="payment-terms">
+                                    <option value="Net 15">Net 15</option>
+                                    <option value="Net 30" selected>Net 30</option>
+                                    <option value="Net 60">Net 60</option>
+                                    <option value="Due on receipt">Due on receipt</option>
+                                </select>
+                            </div>
+                            
+                            <div class="full-width">
+                                <h3>Items</h3>
+                                <table class="invoice-items" id="invoice-items">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoice-items-body">
+                                        <tr>
+                                            <td><input type="text" class="item-desc" placeholder="Item description" value="Website Development"></td>
+                                            <td><input type="number" class="item-qty" value="1" min="1"></td>
+                                            <td><input type="number" class="item-price" value="1200.00" min="0" step="0.01"></td>
+                                            <td class="item-total">1200.00</td>
+                                            <td><button type="button" class="remove-item-btn"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="item-desc" placeholder="Item description" value="SEO Optimization"></td>
+                                            <td><input type="number" class="item-qty" value="1" min="1"></td>
+                                            <td><input type="number" class="item-price" value="500.00" min="0" step="0.01"></td>
+                                            <td class="item-total">500.00</td>
+                                            <td><button type="button" class="remove-item-btn"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" id="add-item-btn" style="margin-top: 10px; padding: 10px 15px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                                    <i class="fas fa-plus"></i> Add Item
+                                </button>
+                            </div>
+                            
+                            <div class="full-width">
+                                <h3>Notes</h3>
+                                <textarea id="invoice-notes" placeholder="Additional notes...">Thank you for your business. Please make payment within 30 days.</textarea>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="invoice-preview-section">
+                        <h3>Invoice Preview</h3>
+                        <div class="invoice-preview" id="invoice-preview">
+                            <!-- Preview will be generated here -->
+                        </div>
+                        <div class="action-buttons">
+                            <button class="process-btn" id="preview-invoice-btn">Update Preview</button>
+                            <button class="download-btn" id="download-invoice-btn">Download Invoice as PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productivity Suite Modal -->
+    <div class="modal" id="productivity-suite-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-tasks"></i> Productivity Suite</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="productivity-tabs">
+                    <div class="productivity-tab active" data-tab="todo">Todo List</div>
+                    <div class="productivity-tab" data-tab="calculator">Calculator</div>
+                    <div class="productivity-tab" data-tab="clock">Alarm Clock</div>
+                </div>
+
+                <!-- Todo List Content -->
+                <div class="productivity-content active" id="todo-content">
+                    <div class="todo-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div class="todo-category" style="background-color: var(--light); padding: 1.5rem; border-radius: var(--border-radius);">
+                            <h3 style="margin-bottom: 1rem; color: var(--primary);">Personal Tasks</h3>
+                            <div class="todo-form" style="display: flex; margin-bottom: 1rem;">
+                                <input type="text" class="todo-input" id="personal-input" placeholder="Add a personal task..." style="flex: 1; padding: 10px; border: 1px solid var(--gray-light); border-radius: var(--border-radius) 0 0 var(--border-radius);">
+                                <button class="todo-add-btn" id="personal-add-btn" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 10px 15px; border-radius: 0 var(--border-radius) var(--border-radius) 0; cursor: pointer;"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <ul class="todo-list" id="personal-list" style="list-style: none; max-height: 300px; overflow-y: auto;"></ul>
+                            <div class="progress-container" style="margin-top: 1rem;">
+                                <div class="progress-bar" style="height: 10px; background-color: var(--gray-light); border-radius: 5px; overflow: hidden; margin-bottom: 5px;">
+                                    <div class="progress" id="personal-progress" style="height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 0%; transition: width 0.3s ease;"></div>
+                                </div>
+                                <div class="progress-text" id="personal-progress-text" style="font-size: 0.9rem; color: var(--gray);">0% Complete</div>
+                            </div>
+                        </div>
+                        <div class="todo-category" style="background-color: var(--light); padding: 1.5rem; border-radius: var(--border-radius);">
+                            <h3 style="margin-bottom: 1rem; color: var(--primary);">Professional Tasks</h3>
+                            <div class="todo-form" style="display: flex; margin-bottom: 1rem;">
+                                <input type="text" class="todo-input" id="professional-input" placeholder="Add a professional task..." style="flex: 1; padding: 10px; border: 1px solid var(--gray-light); border-radius: var(--border-radius) 0 0 var(--border-radius);">
+                                <button class="todo-add-btn" id="professional-add-btn" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 10px 15px; border-radius: 0 var(--border-radius) var(--border-radius) 0; cursor: pointer;"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <ul class="todo-list" id="professional-list" style="list-style: none; max-height: 300px; overflow-y: auto;"></ul>
+                            <div class="progress-container" style="margin-top: 1rem;">
+                                <div class="progress-bar" style="height: 10px; background-color: var(--gray-light); border-radius: 5px; overflow: hidden; margin-bottom: 5px;">
+                                    <div class="progress" id="professional-progress" style="height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 0%; transition: width 0.3s ease;"></div>
+                                </div>
+                                <div class="progress-text" id="professional-progress-text" style="font-size: 0.9rem; color: var(--gray);">0% Complete</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overall-progress" style="margin-top: 2rem; text-align: center;">
+                        <h3>Overall Progress</h3>
+                        <div class="progress-bar" style="width: 100%; max-width: 500px; margin: 0 auto; height: 12px; background-color: var(--gray-light); border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+                            <div class="progress" id="overall-progress" style="height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 0%; transition: width 0.3s ease;"></div>
+                        </div>
+                        <div class="progress-text" id="overall-progress-text" style="font-size: 0.9rem; color: var(--gray);">0% Complete</div>
+                    </div>
+                </div>
+
+                <!-- Calculator Content -->
+                <div class="productivity-content" id="calculator-content">
+                    <div class="calculator" style="background-color: var(--light); padding: 1.5rem; border-radius: var(--border-radius); max-width: 300px; margin: 0 auto;">
+                        <div class="calculator-display" id="calc-display" style="background-color: white; padding: 15px; border-radius: var(--border-radius); margin-bottom: 1rem; text-align: right; font-size: 1.5rem; min-height: 60px; border: 1px solid var(--gray-light); display: flex; flex-direction: column;">
+                            <div class="calc-operation" id="calc-operation" style="font-size: 0.9rem; color: var(--gray); min-height: 20px;"></div>
+                            <div class="calc-result" id="calc-result">0</div>
+                        </div>
+                        <div class="calculator-buttons" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                            <button class="calc-btn" data-value="C" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">C</button>
+                            <button class="calc-btn" data-value="CE" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">CE</button>
+                            <button class="calc-btn" data-value="%" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">%</button>
+                            <button class="calc-btn operator" data-value="/" style="padding: 15px; border: none; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">/</button>
+                            <button class="calc-btn" data-value="7" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">7</button>
+                            <button class="calc-btn" data-value="8" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">8</button>
+                            <button class="calc-btn" data-value="9" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">9</button>
+                            <button class="calc-btn operator" data-value="*" style="padding: 15px; border: none; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">×</button>
+                            <button class="calc-btn" data-value="4" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">4</button>
+                            <button class="calc-btn" data-value="5" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">5</button>
+                            <button class="calc-btn" data-value="6" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">6</button>
+                            <button class="calc-btn operator" data-value="-" style="padding: 15px; border: none; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">-</button>
+                            <button class="calc-btn" data-value="1" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">1</button>
+                            <button class="calc-btn" data-value="2" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">2</button>
+                            <button class="calc-btn" data-value="3" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">3</button>
+                            <button class="calc-btn operator" data-value="+" style="padding: 15px; border: none; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">+</button>
+                            <button class="calc-btn" data-value="0" style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">0</button>
+                            <button class="calc-btn" data-value="." style="padding: 15px; border: none; border-radius: var(--border-radius); background-color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">.</button>
+                            <button class="calc-btn equals" data-value="=" style="padding: 15px; border: none; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--success), #3aa8d0); color: white; font-size: 1.2rem; cursor: pointer; transition: var(--transition);">=</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alarm Clock Content -->
+                <div class="productivity-content" id="clock-content">
+                    <div class="clock-container" style="background-color: var(--light); padding: 1.5rem; border-radius: var(--border-radius); text-align: center;">
+                        <div class="current-time" id="current-time" style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">00:00:00</div>
+                        <div class="alarm-section" style="margin-top: 2rem;">
+                            <h3>Set Alarm</h3>
+                            <div class="alarm-form" style="display: flex; gap: 10px; margin-bottom: 1rem; justify-content: center; flex-wrap: wrap;">
+                                <input type="time" class="alarm-input" id="alarm-time" style="padding: 10px; border: 1px solid var(--gray-light); border-radius: var(--border-radius);">
+                                <select class="alarm-sound" id="alarm-sound" style="padding: 10px; border: 1px solid var(--gray-light); border-radius: var(--border-radius); width: 200px;">
+                                    <option value="beep">Beep</option>
+                                    <option value="bell">Bell</option>
+                                    <option value="chime">Chime</option>
+                                    <option value="digital">Digital</option>
+                                    <option value="horn">Horn</option>
+                                    <option value="melody">Melody</option>
+                                    <option value="ringtone">Ringtone</option>
+                                    <option value="rooster">Rooster</option>
+                                    <option value="siren">Siren</option>
+                                    <option value="whistle">Whistle</option>
+                                </select>
+                                <button class="alarm-btn" id="set-alarm-btn" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 10px 15px; border-radius: var(--border-radius); cursor: pointer;">Set Alarm</button>
+                            </div>
+                            <div class="active-alarms" id="active-alarms" style="margin-top: 1rem;">
+                                <h4>Active Alarms</h4>
+                                <!-- Alarm items will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motivational Quote -->
+                <div class="quote-container" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2rem; border-radius: var(--border-radius); text-align: center; margin-top: 2rem;">
+                    <div class="quote-text" id="quote-text" style="font-size: 1.2rem; font-style: italic; margin-bottom: 1rem;">The only way to do great work is to love what you do.</div>
+                    <div class="quote-author" id="quote-author" style="font-weight: 600;">- Steve Jobs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        });
+
+        // Tool Modal Management - FIXED: All modals now work
+        const toolButtons = document.querySelectorAll('.tool-button');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+
+        // Open modal when tool button is clicked
+        toolButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const toolName = this.getAttribute('data-tool');
+                const modal = document.getElementById(`${toolName}-modal`);
+                if (modal) {
+                    modal.style.display = 'flex';
+                    
+                    // If opening productivity suite, update the quote
+                    if (toolName === 'productivity-suite') {
+                        updateQuote();
+                        // Also generate initial todo list
+                        renderTodos();
+                    }
+                    
+                    // If opening invoice, generate initial preview
+                    if (toolName === 'invoice-maker') {
+                        generateInvoicePreview();
+                    }
+                }
+            });
+        });
+
+        // Close modal when close button is clicked
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Close modal when clicking outside the modal content
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+        });
+
+        // Productivity Suite Tabs
+        const productivityTabs = document.querySelectorAll('.productivity-tab');
+        const productivityContents = document.querySelectorAll('.productivity-content');
+
+        productivityTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Update active tab
+                productivityTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update active content
+                productivityContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabName}-content`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // File Upload Handling
+        const uploadAreas = document.querySelectorAll('.upload-area');
+        
+        uploadAreas.forEach(area => {
+            const fileInput = area.querySelector('.file-input');
+            const fileInfo = area.querySelector('.file-info');
+            
+            area.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // Handle file selection via input
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    fileInfo.innerHTML = `<i class="fas fa-check-circle"></i> Selected: ${fileName}`;
+                    fileInfo.style.color = '#4cc9f0';
+                }
+            });
+            
+            area.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                area.style.borderColor = '#4361ee';
+                area.style.backgroundColor = '#f0f4ff';
+            });
+            
+            area.addEventListener('dragleave', () => {
+                area.style.borderColor = '#e9ecef';
+                area.style.backgroundColor = 'transparent';
+            });
+            
+            area.addEventListener('drop', (e) => {
+                e.preventDefault();
+                area.style.borderColor = '#e9ecef';
+                area.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    const fileName = e.dataTransfer.files[0].name;
+                    fileInfo.innerHTML = `<i class="fas fa-check-circle"></i> Selected: ${fileName}`;
+                    fileInfo.style.color = '#4cc9f0';
+                }
+            });
+        });
+
+        // Image Compression Simulation
+        document.getElementById('image-process-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('image-input');
+            if (!fileInput.files.length) {
+                alert('Please select an image first.');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('image-progress-container');
+            const progressBar = document.getElementById('image-progress-bar');
+            const progressText = document.getElementById('image-progress-text');
+            const downloadBtn = document.getElementById('image-download-btn');
+            
+            progressContainer.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    downloadBtn.style.display = 'block';
+                    this.style.display = 'none';
+                    
+                    // Show file size reduction info
+                    const fileInfo = document.getElementById('image-file-info');
+                    fileInfo.innerHTML += `<br><i class="fas fa-info-circle"></i> File size reduced by 65%`;
+                }
+            }, 100);
+        });
+
+        // Video Compression Simulation
+        document.getElementById('video-process-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('video-input');
+            if (!fileInput.files.length) {
+                alert('Please select a video first.');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('video-progress-container');
+            const progressBar = document.getElementById('video-progress-bar');
+            const progressText = document.getElementById('video-progress-text');
+            const downloadBtn = document.getElementById('video-download-btn');
+            
+            progressContainer.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    downloadBtn.style.display = 'block';
+                    this.style.display = 'none';
+                    
+                    // Show file size reduction info
+                    const fileInfo = document.getElementById('video-file-info');
+                    fileInfo.innerHTML += `<br><i class="fas fa-info-circle"></i> File size reduced by 50%`;
+                }
+            }, 100);
+        });
+
+        // Audio Compression Simulation
+        document.getElementById('audio-process-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('audio-input');
+            if (!fileInput.files.length) {
+                alert('Please select an audio file first.');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('audio-progress-container');
+            const progressBar = document.getElementById('audio-progress-bar');
+            const progressText = document.getElementById('audio-progress-text');
+            const downloadBtn = document.getElementById('audio-download-btn');
+            
+            progressContainer.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    downloadBtn.style.display = 'block';
+                    this.style.display = 'none';
+                    
+                    // Show file size reduction info
+                    const fileInfo = document.getElementById('audio-file-info');
+                    fileInfo.innerHTML += `<br><i class="fas fa-info-circle"></i> File size reduced by 40%`;
+                }
+            }, 100);
+        });
+
+        // PDF to Word Conversion
+        document.getElementById('pdf-to-word-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('pdf-to-word-input');
+            if (!fileInput.files.length) {
+                alert('Please select a PDF file first.');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('pdf-to-word-progress-container');
+            const progressBar = document.getElementById('pdf-to-word-progress-bar');
+            const progressText = document.getElementById('pdf-to-word-progress-text');
+            const downloadBtn = document.getElementById('pdf-to-word-download-btn');
+            
+            progressContainer.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    downloadBtn.style.display = 'block';
+                    this.style.display = 'none';
+                    
+                    // Show conversion info
+                    const fileInfo = document.getElementById('pdf-to-word-file-info');
+                    fileInfo.innerHTML += `<br><i class="fas fa-info-circle"></i> PDF converted to Word successfully`;
+                }
+            }, 100);
+        });
+
+        // Word to PDF Conversion
+        document.getElementById('word-to-pdf-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('word-to-pdf-input');
+            if (!fileInput.files.length) {
+                alert('Please select a Word document first.');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('word-to-pdf-progress-container');
+            const progressBar = document.getElementById('word-to-pdf-progress-bar');
+            const progressText = document.getElementById('word-to-pdf-progress-text');
+            const downloadBtn = document.getElementById('word-to-pdf-download-btn');
+            
+            progressContainer.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    downloadBtn.style.display = 'block';
+                    this.style.display = 'none';
+                    
+                    // Show conversion info
+                    const fileInfo = document.getElementById('word-to-pdf-file-info');
+                    fileInfo.innerHTML += `<br><i class="fas fa-info-circle"></i> Word document converted to PDF successfully`;
+                }
+            }, 100);
+        });
+
+        // Download Button Handlers (simulated)
+        document.getElementById('image-download-btn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the compressed image.');
+        });
+
+        document.getElementById('video-download-btn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the compressed video.');
+        });
+
+        document.getElementById('audio-download-btn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the compressed audio.');
+        });
+
+        document.getElementById('pdf-to-word-download-btn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the converted Word document.');
+        });
+
+        document.getElementById('word-to-pdf-download-btn').addEventListener('click', function() {
+            alert('In a real implementation, this would download the converted PDF document.');
+        });
+
+        // Invoice Maker Functionality
+        document.getElementById('add-item-btn').addEventListener('click', function() {
+            const tbody = document.getElementById('invoice-items-body');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="item-desc" placeholder="Item description"></td>
+                <td><input type="number" class="item-qty" value="1" min="1"></td>
+                <td><input type="number" class="item-price" value="0.00" min="0" step="0.01"></td>
+                <td class="item-total">0.00</td>
+                <td><button type="button" class="remove-item-btn"><i class="fas fa-trash"></i></button></td>
+            `;
+            tbody.appendChild(newRow);
+            
+            // Add event listeners to new inputs
+            const qtyInput = newRow.querySelector('.item-qty');
+            const priceInput = newRow.querySelector('.item-price');
+            
+            qtyInput.addEventListener('input', calculateItemTotal);
+            priceInput.addEventListener('input', calculateItemTotal);
+            
+            // Add event listener to remove button
+            newRow.querySelector('.remove-item-btn').addEventListener('click', function() {
+                tbody.removeChild(newRow);
+                calculateInvoiceTotal();
+                generateInvoicePreview();
+            });
+        });
+
+        // Calculate item total
+        function calculateItemTotal() {
+            const row = this.closest('tr');
+            const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(row.querySelector('.item-price').value) || 0;
+            const total = qty * price;
+            row.querySelector('.item-total').textContent = total.toFixed(2);
+            calculateInvoiceTotal();
+        }
+
+        // Calculate invoice total
+        function calculateInvoiceTotal() {
+            let subtotal = 0;
+            document.querySelectorAll('.item-total').forEach(cell => {
+                subtotal += parseFloat(cell.textContent) || 0;
+            });
+            
+            // In a real implementation, you might calculate tax and other fees here
+            const taxRate = 0.1; // 10% tax
+            const tax = subtotal * taxRate;
+            const total = subtotal + tax;
+            
+            return { subtotal, tax, total };
+        }
+
+        // Initialize item calculation for existing rows
+        document.querySelectorAll('.item-qty, .item-price').forEach(input => {
+            input.addEventListener('input', calculateItemTotal);
+        });
+
+        // Remove item button for existing rows
+        document.querySelectorAll('.remove-item-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const tbody = document.getElementById('invoice-items-body');
+                if (tbody.children.length > 1) {
+                    tbody.removeChild(this.closest('tr'));
+                    calculateInvoiceTotal();
+                    generateInvoicePreview();
+                } else {
+                    alert('You need at least one item in the invoice.');
+                }
+            });
+        });
+
+        // Generate Invoice Preview
+        function generateInvoicePreview() {
+            const companyName = document.getElementById('company-name').value;
+            const companyAddress = document.getElementById('company-address').value;
+            const companyEmail = document.getElementById('company-email').value;
+            const companyPhone = document.getElementById('company-phone').value;
+            const companyWebsite = document.getElementById('company-website').value;
+            
+            const clientName = document.getElementById('client-name').value;
+            const clientCompany = document.getElementById('client-company').value;
+            const clientAddress = document.getElementById('client-address').value;
+            const clientEmail = document.getElementById('client-email').value;
+            
+            const invoiceNumber = document.getElementById('invoice-number').value;
+            const invoiceDate = document.getElementById('invoice-date').value;
+            const dueDate = document.getElementById('due-date').value;
+            const paymentTerms = document.getElementById('payment-terms').value;
+            const notes = document.getElementById('invoice-notes').value;
+            
+            let itemsHTML = '';
+            let subtotal = 0;
+            
+            document.querySelectorAll('#invoice-items-body tr').forEach(row => {
+                const desc = row.querySelector('.item-desc').value || 'Item';
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                const total = qty * price;
+                subtotal += total;
+                
+                itemsHTML += `
+                    <tr>
+                        <td>${desc}</td>
+                        <td>${qty}</td>
+                        <td>$${price.toFixed(2)}</td>
+                        <td>$${total.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+            
+            const { tax, total } = calculateInvoiceTotal();
+            
+            const previewHTML = `
+                <div class="invoice-header">
+                    <div class="invoice-logo">${companyName}</div>
+                    <div class="invoice-title">
+                        <h1>INVOICE</h1>
+                        <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
+                        <p><strong>Date:</strong> ${invoiceDate}</p>
+                        <p><strong>Due Date:</strong> ${dueDate}</p>
+                    </div>
+                </div>
+                
+                <div class="invoice-details">
+                    <div class="invoice-from">
+                        <h3>From:</h3>
+                        <p><strong>${companyName}</strong></p>
+                        <p>${companyAddress}</p>
+                        <p>${companyEmail}</p>
+                        <p>${companyPhone}</p>
+                        <p>${companyWebsite}</p>
+                    </div>
+                    <div class="invoice-to">
+                        <h3>To:</h3>
+                        <p><strong>${clientName}</strong></p>
+                        <p>${clientCompany ? clientCompany + '<br>' : ''}${clientAddress}</p>
+                        <p>${clientEmail}</p>
+                    </div>
+                </div>
+                
+                <table class="invoice-items">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHTML}
+                    </tbody>
+                </table>
+                
+                <div class="invoice-totals">
+                    <div>
+                        <span>Subtotal:</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div>
+                        <span>Tax (10%):</span>
+                        <span>$${tax.toFixed(2)}</span>
+                    </div>
+                    <div class="total">
+                        <span>Total:</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                <div class="invoice-notes">
+                    <h4>Notes</h4>
+                    <p>${notes}</p>
+                    <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
+                </div>
+            `;
+            
+            document.getElementById('invoice-preview').innerHTML = previewHTML;
+        }
+
+        // Update Preview Button
+        document.getElementById('preview-invoice-btn').addEventListener('click', generateInvoicePreview);
+
+        // Download Invoice as PDF
+        document.getElementById('download-invoice-btn').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Get invoice data
+            const companyName = document.getElementById('company-name').value;
+            const invoiceNumber = document.getElementById('invoice-number').value;
+            
+            // Add content to PDF
+            doc.setFontSize(20);
+            doc.text(`INVOICE - ${companyName}`, 20, 20);
+            doc.setFontSize(12);
+            doc.text(`Invoice #: ${invoiceNumber}`, 20, 35);
+            doc.text("This is a simplified PDF export.", 20, 50);
+            doc.text("In a real implementation, this would include", 20, 60);
+            doc.text("the full invoice details.", 20, 70);
+            
+            // Save the PDF
+            doc.save(`invoice-${invoiceNumber}.pdf`);
+        });
+
+        // Set current date for invoice
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('invoice-date').value = formattedDate;
+        
+        // Set due date to 30 days from now
+        const dueDate = new Date();
+        dueDate.setDate(today.getDate() + 30);
+        const formattedDueDate = dueDate.toISOString().split('T')[0];
+        document.getElementById('due-date').value = formattedDueDate;
+
+        // Todo List Functionality
+        const personalInput = document.getElementById('personal-input');
+        const personalAddBtn = document.getElementById('personal-add-btn');
+        const personalList = document.getElementById('personal-list');
+        const personalProgress = document.getElementById('personal-progress');
+        const personalProgressText = document.getElementById('personal-progress-text');
+
+        const professionalInput = document.getElementById('professional-input');
+        const professionalAddBtn = document.getElementById('professional-add-btn');
+        const professionalList = document.getElementById('professional-list');
+        const professionalProgress = document.getElementById('professional-progress');
+        const professionalProgressText = document.getElementById('professional-progress-text');
+
+        const overallProgress = document.getElementById('overall-progress');
+        const overallProgressText = document.getElementById('overall-progress-text');
+
+        // Load todos from localStorage
+        let personalTodos = JSON.parse(localStorage.getItem('personalTodos')) || [];
+        let professionalTodos = JSON.parse(localStorage.getItem('professionalTodos')) || [];
+
+        // Render todos
+        function renderTodos() {
+            // Personal todos
+            personalList.innerHTML = '';
+            personalTodos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-category="personal" data-index="${index}">
+                    <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                    <button class="todo-delete" data-category="personal" data-index="${index}"><i class="fas fa-trash"></i></button>
+                `;
+                personalList.appendChild(li);
+            });
+
+            // Professional todos
+            professionalList.innerHTML = '';
+            professionalTodos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-category="professional" data-index="${index}">
+                    <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                    <button class="todo-delete" data-category="professional" data-index="${index}"><i class="fas fa-trash"></i></button>
+                `;
+                professionalList.appendChild(li);
+            });
+
+            updateProgress();
+            attachTodoEventListeners();
+        }
+
+        // Add personal todo
+        personalAddBtn.addEventListener('click', function() {
+            const text = personalInput.value.trim();
+            if (text) {
+                personalTodos.push({ text, completed: false });
+                personalInput.value = '';
+                saveTodos();
+                renderTodos();
+            }
+        });
+
+        // Add professional todo
+        professionalAddBtn.addEventListener('click', function() {
+            const text = professionalInput.value.trim();
+            if (text) {
+                professionalTodos.push({ text, completed: false });
+                professionalInput.value = '';
+                saveTodos();
+                renderTodos();
+            }
+        });
+
+        // Add todo on Enter key
+        personalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                personalAddBtn.click();
+            }
+        });
+
+        professionalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                professionalAddBtn.click();
+            }
+        });
+
+        // Attach event listeners to todo items
+        function attachTodoEventListeners() {
+            // Checkbox events
+            document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const category = this.getAttribute('data-category');
+                    const index = parseInt(this.getAttribute('data-index'));
+                    
+                    if (category === 'personal') {
+                        personalTodos[index].completed = this.checked;
+                    } else {
+                        professionalTodos[index].completed = this.checked;
+                    }
+                    
+                    saveTodos();
+                    renderTodos();
+                });
+            });
+
+            // Delete button events
+            document.querySelectorAll('.todo-delete').forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    const index = parseInt(this.getAttribute('data-index'));
+                    
+                    if (category === 'personal') {
+                        personalTodos.splice(index, 1);
+                    } else {
+                        professionalTodos.splice(index, 1);
+                    }
+                    
+                    saveTodos();
+                    renderTodos();
+                });
+            });
+        }
+
+        // Update progress bars
+        function updateProgress() {
+            // Personal progress
+            const personalCompleted = personalTodos.filter(todo => todo.completed).length;
+            const personalTotal = personalTodos.length;
+            const personalPercentage = personalTotal > 0 ? (personalCompleted / personalTotal) * 100 : 0;
+            
+            personalProgress.style.width = `${personalPercentage}%`;
+            personalProgressText.textContent = `${Math.round(personalPercentage)}% Complete (${personalCompleted}/${personalTotal})`;
+            
+            // Professional progress
+            const professionalCompleted = professionalTodos.filter(todo => todo.completed).length;
+            const professionalTotal = professionalTodos.length;
+            const professionalPercentage = professionalTotal > 0 ? (professionalCompleted / professionalTotal) * 100 : 0;
+            
+            professionalProgress.style.width = `${professionalPercentage}%`;
+            professionalProgressText.textContent = `${Math.round(professionalPercentage)}% Complete (${professionalCompleted}/${professionalTotal})`;
+            
+            // Overall progress
+            const totalCompleted = personalCompleted + professionalCompleted;
+            const totalTodos = personalTotal + professionalTotal;
+            const overallPercentage = totalTodos > 0 ? (totalCompleted / totalTodos) * 100 : 0;
+            
+            overallProgress.style.width = `${overallPercentage}%`;
+            overallProgressText.textContent = `${Math.round(overallPercentage)}% Complete (${totalCompleted}/${totalTodos})`;
+        }
+
+        // Save todos to localStorage
+        function saveTodos() {
+            localStorage.setItem('personalTodos', JSON.stringify(personalTodos));
+            localStorage.setItem('professionalTodos', JSON.stringify(professionalTodos));
+        }
+
+        // Calculator Functionality
+        const calcOperation = document.getElementById('calc-operation');
+        const calcResult = document.getElementById('calc-result');
+        let currentInput = '0';
+        let previousInput = '';
+        let operation = null;
+        let resetDisplay = false;
+
+        document.querySelectorAll('.calc-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                
+                if (value === 'C') {
+                    // Clear everything
+                    currentInput = '0';
+                    previousInput = '';
+                    operation = null;
+                    resetDisplay = false;
+                    calcResult.textContent = currentInput;
+                    calcOperation.textContent = '';
+                } else if (value === 'CE') {
+                    // Clear current input
+                    currentInput = '0';
+                    calcResult.textContent = currentInput;
+                } else if (value === '=') {
+                    // Perform calculation
+                    if (operation && previousInput !== '') {
+                        currentInput = calculate(previousInput, currentInput, operation);
+                        operation = null;
+                        previousInput = '';
+                        resetDisplay = true;
+                        calcResult.textContent = currentInput;
+                        calcOperation.textContent = '';
+                    }
+                } else if (['+', '-', '*', '/', '%'].includes(value)) {
+                    // Set operation
+                    if (previousInput === '') {
+                        previousInput = currentInput;
+                        operation = value;
+                        resetDisplay = true;
+                        calcOperation.textContent = `${previousInput} ${getOperationSymbol(value)}`;
+                    } else if (operation) {
+                        // Perform previous operation first
+                        currentInput = calculate(previousInput, currentInput, operation);
+                        calcResult.textContent = currentInput;
+                        previousInput = currentInput;
+                        operation = value;
+                        resetDisplay = true;
+                        calcOperation.textContent = `${previousInput} ${getOperationSymbol(value)}`;
+                    }
+                } else {
+                    // Number or decimal point
+                    if (resetDisplay) {
+                        currentInput = value;
+                        resetDisplay = false;
+                    } else {
+                        currentInput = currentInput === '0' ? value : currentInput + value;
+                    }
+                    calcResult.textContent = currentInput;
+                    
+                    // Update operation display if there's an operation
+                    if (operation && previousInput) {
+                        calcOperation.textContent = `${previousInput} ${getOperationSymbol(operation)}`;
+                    }
+                }
+            });
+        });
+
+        function getOperationSymbol(op) {
+            switch(op) {
+                case '+': return '+';
+                case '-': return '-';
+                case '*': return '×';
+                case '/': return '÷';
+                case '%': return '%';
+                default: return op;
+            }
+        }
+
+        function calculate(a, b, op) {
+            a = parseFloat(a);
+            b = parseFloat(b);
+            
+            switch (op) {
+                case '+': return (a + b).toString();
+                case '-': return (a - b).toString();
+                case '*': return (a * b).toString();
+                case '/': return b !== 0 ? (a / b).toString() : 'Error';
+                case '%': return (a % b).toString();
+                default: return b.toString();
+            }
+        }
+
+        // Clock Functionality
+        const currentTimeElement = document.getElementById('current-time');
+        const alarmTimeInput = document.getElementById('alarm-time');
+        const alarmSoundSelect = document.getElementById('alarm-sound');
+        const setAlarmBtn = document.getElementById('set-alarm-btn');
+        const activeAlarmsElement = document.getElementById('active-alarms');
+        
+        let alarms = JSON.parse(localStorage.getItem('alarms')) || [];
+        let alarmInterval;
+
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Check alarms
+            checkAlarms(now);
+        }
+
+        // Set alarm
+        setAlarmBtn.addEventListener('click', function() {
+            const alarmTime = alarmTimeInput.value;
+            const alarmSound = alarmSoundSelect.value;
+            
+            if (alarmTime) {
+                alarms.push({ time: alarmTime, sound: alarmSound, active: true });
+                saveAlarms();
+                renderAlarms();
+                alarmTimeInput.value = '';
+            }
+        });
+
+        // Render alarms
+        function renderAlarms() {
+            activeAlarmsElement.innerHTML = '<h4>Active Alarms</h4>';
+            
+            if (alarms.length === 0) {
+                activeAlarmsElement.innerHTML += '<p>No active alarms</p>';
+                return;
+            }
+            
+            alarms.forEach((alarm, index) => {
+                const alarmItem = document.createElement('div');
+                alarmItem.className = 'alarm-item';
+                alarmItem.innerHTML = `
+                    <div>
+                        <strong>${alarm.time}</strong> - ${alarm.sound}
+                    </div>
+                    <button class="delete-alarm" data-index="${index}"><i class="fas fa-trash"></i></button>
+                `;
+                activeAlarmsElement.appendChild(alarmItem);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-alarm').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    alarms.splice(index, 1);
+                    saveAlarms();
+                    renderAlarms();
+                });
+            });
+        }
+
+        // Check alarms
+        function checkAlarms(now) {
+            const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            alarms.forEach((alarm, index) => {
+                if (alarm.active && alarm.time === currentTime) {
+                    // Trigger alarm
+                    triggerAlarm(alarm.sound);
+                    
+                    // Deactivate alarm (one-time alarm)
+                    alarms[index].active = false;
+                    saveAlarms();
+                    renderAlarms();
+                }
+            });
+        }
+
+        // Trigger alarm sound
+        function triggerAlarm(sound) {
+            // Create audio context
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create different sounds based on selection
+            let oscillator = audioContext.createOscillator();
+            let gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Set sound parameters based on selection
+            switch(sound) {
+                case 'beep':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 800;
+                    break;
+                case 'bell':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 523.25; // C5
+                    break;
+                case 'chime':
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.value = 659.25; // E5
+                    break;
+                case 'digital':
+                    oscillator.type = 'square';
+                    oscillator.frequency.value = 1000;
+                    break;
+                case 'horn':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.value = 300;
+                    break;
+                case 'melody':
+                    // Simple melody (C, E, G)
+                    playMelody(audioContext);
+                    return;
+                case 'ringtone':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 800;
+                    // Add some variation
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.5);
+                    break;
+                case 'rooster':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 800;
+                    // Cock-a-doodle-doo effect
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.3);
+                    oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.6);
+                    break;
+                case 'siren':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.value = 800;
+                    // Siren effect
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(1600, audioContext.currentTime + 1);
+                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 2);
+                    break;
+                case 'whistle':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 1500;
+                    break;
+            }
+            
+            // Configure volume
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 2);
+            
+            // Play the sound
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 2);
+            
+            // Show notification
+            if (Notification.permission === 'granted') {
+                new Notification('Alarm!', { body: `Your ${sound} alarm is ringing!` });
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification('Alarm!', { body: `Your ${sound} alarm is ringing!` });
+                    }
+                });
+            }
+        }
+
+        // Play a simple melody
+        function playMelody(audioContext) {
+            const notes = [523.25, 659.25, 783.99]; // C, E, G
+            let time = audioContext.currentTime;
+            
+            notes.forEach((frequency, index) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.value = frequency;
+                
+                gainNode.gain.setValueAtTime(0, time);
+                gainNode.gain.linearRampToValueAtTime(0.3, time + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
+                
+                oscillator.start(time);
+                oscillator.stop(time + 0.5);
+                
+                time += 0.5;
+            });
+        }
+
+        // Save alarms to localStorage
+        function saveAlarms() {
+            localStorage.setItem('alarms', JSON.stringify(alarms));
+        }
+
+        // Motivational Quotes
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+            { text: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson" }
+        ];
+
+        function updateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quote = quotes[randomIndex];
+            
+            document.getElementById('quote-text').textContent = quote.text;
+            document.getElementById('quote-author').textContent = `- ${quote.author}`;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileNav').classList.remove('active');
+                }
+            });
+        });
+
+        // Initialize the application
+        function init() {
+            // Render todos
+            renderTodos();
+            
+            // Render alarms
+            renderAlarms();
+            
+            // Start clock
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Update quote
+            updateQuote();
+            
+            // Generate initial invoice preview
+            generateInvoicePreview();
+        }
+
+        // Start the application
+        init();
+    </script>
+</body>
+</html>
